@@ -19,10 +19,10 @@ const schema = new Schema({
         trim: true,
         required: false,
     },
-    done: {
-        type: Boolean,
+    status: {
+        type: Number,
         required: true,
-        default: false
+        default: 0
     },
     done_on: {
         type: Date
@@ -41,6 +41,10 @@ const schema = new Schema({
     linked_with: {
         type: [Schema.Types.ObjectId],
         ref: 'todoListItem'
+    },
+    linked_with: {
+        type: [Schema.Types.ObjectId],
+        ref: 'comments'
     }
     // @TODO built in files
 });
