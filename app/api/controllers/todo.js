@@ -2,17 +2,15 @@
  * Copyright (c) 2018. Benjamin Klein
  */
 
-const userModel = require('../models/todoList');
+const todoList = require('../models/todoList');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
     create: function (req, res, next) {
-        console.log(req.body)
-        userModel.create({
+        todoList.create({
             name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
+            user_id: req.body.userId
         }, function (err, result) {
             if (err) {
                 errorData = {};
@@ -21,8 +19,20 @@ module.exports = {
                 }
                 res.status(400).json({status: "error", message: "Something went wrong!", data: errorData});
             } else {
-                res.json({status: "success", message: "User added", data: null});
+                res.json({status: "success", message: "Todo added", data: null});
             }
         });
+    },
+    getAll: function (req, res, next) {
+        res.status(501);
+    },
+    getById: function (req, res, next) {
+        res.status(501);
+    },
+    updateById: function (req, res, next) {
+        res.status(501);
+    },
+    deleteById: function (req, res, next) {
+        res.status(501);
     },
 }

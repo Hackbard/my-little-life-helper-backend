@@ -20,13 +20,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use('/users', users);
-app.use('/todos', validateUser, todos);
+app.use('/todo', validateUser, todos);
 
 app.get('/', function (req, res) {
     res.json({"tutorial": "Build REST API with node.js"});
 });
 
-app.get('/ping', function (req, res) {
+app.get('/ping', validateUser, function (req, res) {
     res.json({"time": Date.now()});
 });
 
@@ -36,7 +36,8 @@ app.get('/favicon.ico', function (req, res) {
 });
 
 function validateUser(req, res, next) {
-    jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
+    let token = req.headers['authorization'].replace("Bearer ", "");
+    jwt.verify(token, req.app.get('secretKey'), function (err, decoded) {
         if (err) {
             res.json({status: "error", message: err.message, data: null});
         } else {

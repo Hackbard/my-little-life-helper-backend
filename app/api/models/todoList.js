@@ -14,11 +14,16 @@ const schema = new Schema({
         trim: true,
         required: true,
     },
+    user_id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     list_items: {
         type: [Schema.Types.ObjectId],
         ref: 'todoListItem'
     }
-})
+});
 
 schema.plugin(timestampPlugin);
-module.exports = mongoose.model('todoList', schema);
+module.exports = mongoose.model('TodoList', schema);
